@@ -710,9 +710,7 @@ class Seq2SeqLM(Model):
                 if stop:
                     # Slice with decoder_input_length to remove padding
                     # Decode all tokens
-                    pre_text = self.decode(all_decoder_input_ids[-decoder_input_length-1:-decoder_input_length])
-                    output_text = self.decode(all_decoder_input_ids[-decoder_input_length-1:])
-                    output_text = output_text[len(pre_text):]
+                    output_text = self.decode_token(all_decoder_input_ids, -stopping_criteria.current_tokens-1, -stopping_criteria.current_tokens)
 
                     # Get seed
                     if isinstance(next_token_chooser.choice, Sampling):
